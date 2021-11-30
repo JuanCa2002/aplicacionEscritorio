@@ -1,0 +1,68 @@
+views/crudPublisher.java
+ views.crudPublisher
+ views.crudPublisher$1
+ views.crudPublisher$2
+models/APIError.java
+ models.APIError
+https/UserClient.java
+ https.UserClient
+https/BorrowClient.java
+ https.BorrowClient
+https/BookClient.java
+ https.BookClient
+controllers/CrudUserController.java
+ controllers.CrudUserController
+models/Book.java
+ models.Book
+controllers/ListBooksByUserController.java
+ controllers.ListBooksByUserController
+models/Publisher.java
+ models.Publisher
+controllers/CrudAuthorController.java
+ controllers.CrudAuthorController
+views/CrudUser.java
+ views.CrudUser
+ views.CrudUser$1
+ views.CrudUser$2
+ views.CrudUser$3
+ views.CrudUser$4
+views/CrudBook.java
+ views.CrudBook
+ views.CrudBook$1
+ views.CrudBook$2
+ views.CrudBook$3
+ views.CrudBook$4
+views/CrudAuthor.java
+ views.CrudAuthor
+ views.CrudAuthor$1
+ views.CrudAuthor$2
+ views.CrudAuthor$3
+models/Author.java
+ models.Author
+models/Borrow.java
+ models.Borrow
+controllers/CrudBorrowController.java
+ controllers.CrudBorrowController
+models/User.java
+ models.User
+https/AuthorClient.java
+ https.AuthorClient
+views/CrudBorrow.java
+ views.CrudBorrow
+ views.CrudBorrow$1
+ views.CrudBorrow$2
+ views.CrudBorrow$3
+ views.CrudBorrow$4
+ views.CrudBorrow$5
+https/PublisherClient.java
+ https.PublisherClient
+edu/eam/disenosoftware/aplicacion_escritorio_libreria/Main.java
+ edu.eam.disenosoftware.aplicacion_escritorio_libreria.Main
+controllers/CrudPublisherController.java
+ controllers.CrudPublisherController
+controllers/CrudBookController.java
+ controllers.CrudBookController
+views/ListBooksUser.java
+ views.ListBooksUser
+ views.ListBooksUser$1
+ views.ListBooksUser$2

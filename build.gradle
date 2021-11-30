@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+
+    group = 'edu.eam.disenosoftware'
+
+mainClassName = 'edu.eam.disenosoftware.aplicacion_escritorio_libreria.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation     'junit:junit:4.13'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+}
