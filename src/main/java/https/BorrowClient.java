@@ -34,8 +34,8 @@ public class BorrowClient {
         String bodyStr = objectMapper.writeValueAsString(borrow);
 
         MediaType mediaType = MediaType.parse("application/json");
-        //RequestBody body = RequestBody.create(mediaType, "{\n    \"userId\": \""+borrow.getIdUser()+"\",\n    \"bookId\": \""+borrow.getIdBook()+"\",\n    \"id\": 30,\n}");
-        RequestBody body = RequestBody.create(mediaType, bodyStr);
+        RequestBody body = RequestBody.create(mediaType, "{\n  \"id\": "+borrow.getId()+",\n  \"userId\": \""+borrow.getIdUser()+"\",\n    \"bookId\": \""+borrow.getIdBook()+"\"\n}");
+        //RequestBody body = RequestBody.create(mediaType, bodyStr);
         
         System.out.println(body);
 

@@ -41,8 +41,8 @@ public class Publisher {
     @Override
     public String toString() {
         return "Publisher{"+
-                ", name='" + name +'\'' +
                 " code=" + code +
+                " ,name ='" + name +'\'' + 
                 '}';
     }
 

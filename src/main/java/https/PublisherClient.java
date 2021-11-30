@@ -35,11 +35,11 @@ public class PublisherClient {
 
     public void createPublisher(Publisher publisher) throws Exception{
 
-        String bodyStr = objectMapper.writeValueAsString(publisher);
+        //String bodyStr = objectMapper.writeValueAsString(publisher);
 
         MediaType mediaType = MediaType.parse("application/json");
-        //RequestBody body = RequestBody.create(mediaType, "{\n    \"id\": \""+person.getId()+"\",\n    \"name\": \""+person.getName()+"\",\n    \"age\": 30,\n    \"city\": \"Cali\"\n}");
-        RequestBody body = RequestBody.create(mediaType, bodyStr);
+        RequestBody body = RequestBody.create(mediaType, "{\n    \"code\": "+publisher.getCode()+",\n    \"name\": \""+publisher.getNombre()+"\"\n}");
+        //RequestBody body = RequestBody.create(mediaType, bodyStr);
 
         Request request = new Request.Builder()
                 .url(HOST +"/publishers")
