@@ -7,6 +7,7 @@ package edu.eam.disenosoftware.aplicacion_escritorio_libreria;
 
 import controllers.CrudPublisherController;
 import models.Publisher;
+import models.User;
 
 
 /**
@@ -22,10 +23,11 @@ public class Main {
         // TODO code application logic here
           
           //Publisher publ= new Publisher(1,'hpal');
-          String name="hola";
-          int code=1;
-          Publisher publisher = new Publisher(code,name);
-          System.out.println(publisher);
+          String name="Juan";
+          String id="if";
+          String lastName= "Torres";
+          User user = new User(name, lastName, id);
+         
              }
 
 }

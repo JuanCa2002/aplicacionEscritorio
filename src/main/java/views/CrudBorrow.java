@@ -5,9 +5,15 @@
 package views;
 
 import controllers.CrudBorrowController;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import models.Book;
+import models.User;
+
 
 /**
  *
@@ -22,7 +28,77 @@ public class CrudBorrow extends javax.swing.JFrame {
     public CrudBorrow() {
         initComponents();
         controller= new CrudBorrowController();
+        books();
+        usuarios();
     }
+    
+    public void books(){
+        try{
+        List<Book> books= controller.getAllBooks();
+        cargarComboLibros(books);
+        }catch (IOException ex) {
+            Logger.getLogger(CrudBorrow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void usuarios(){
+        try{
+        List<User> users= controller.getAllUsers();
+        cargarComboUsuarios(users);
+        }catch (IOException ex) {
+            Logger.getLogger(CrudBorrow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public List<Book> generarLibros(){
+        List<Book> books=new ArrayList<Book>();
+        try{
+        books= controller.getAllBooks();
+        }catch (IOException ex) {
+            Logger.getLogger(CrudBorrow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return books;
+    }
+    public List<User> generarUsuarios(){
+        List<User> users=new ArrayList<User>();
+        try{
+        users= controller.getAllUsers();
+        }catch (IOException ex) {
+            Logger.getLogger(CrudBorrow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return users;
+    }
+    
+     public void cargarComboLibros(List<Book> books){
+        for(Book b:books){
+            cbLibros.addItem(b.getNombre());
+        }
+    }
+     
+      public void cargarComboUsuarios(List<User> users){
+        for(User u:users){
+            cbUsuarios.addItem(u.getName());
+        }
+    }
+     
+     public String buscarLibro(List<Book> books, String name){
+         String codigo= "";
+         for(Book b: books){
+             if(b.getNombre().equals(name)){
+                 codigo= b.getCodigo();
+             }
+         }
+        return codigo;  
+     }
+     
+     public String buscarUsuario(List<User> users, String name){
+         String id= "";
+         for(User u: users){
+             if(u.getName().equals(name)){
+                 id= u.getIdentification();
+             }
+         }
+        return id;  
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,34 +109,27 @@ public class CrudBorrow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox2 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        txtUsuarioPrestamo = new javax.swing.JTextField();
-        txtLibroPrestamo = new javax.swing.JTextField();
         btnRegistrarPrestamo = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnDevolverLibro = new javax.swing.JButton();
         txtIdPrestamoDevolver = new javax.swing.JTextField();
+        cbUsuarios = new javax.swing.JComboBox();
+        cbLibros = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Realizar prestamo");
 
         jLabel2.setText("Id:");
-
-        jLabel3.setText("id usuario prestamo:");
-
-        jLabel4.setText("id libro prestamo:");
-
-        txtUsuarioPrestamo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioPrestamoActionPerformed(evt);
-            }
-        });
 
         btnRegistrarPrestamo.setText("Realizar prestamo");
         btnRegistrarPrestamo.addActionListener(new java.awt.event.ActionListener() {
@@ -86,41 +155,50 @@ public class CrudBorrow extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Usuario:");
+
+        jLabel8.setText("Libro:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnRegistrarPrestamo)
-                .addGap(134, 134, 134))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(177, 177, 177)
-                        .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(58, 58, 58))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel7)
+                                            .addGap(116, 116, 116)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(129, 129, 129)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(58, 58, 58)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                                    .addComponent(txtUsuarioPrestamo)
-                                    .addComponent(txtLibroPrestamo)))))
+                                    .addComponent(cbLibros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbUsuarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(162, 162, 162)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addComponent(txtIdPrestamoDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIdPrestamoDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDevolverLibro))))
+                            .addComponent(btnDevolverLibro)
+                            .addComponent(jLabel5)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(btnRegistrarPrestamo)))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -132,39 +210,39 @@ public class CrudBorrow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtUsuarioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7)
+                    .addComponent(cbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtLibroPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(cbLibros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(btnRegistrarPrestamo)
-                .addGap(50, 50, 50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtIdPrestamoDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(btnDevolverLibro)
-                .addGap(62, 62, 62))
+                .addGap(81, 81, 81))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsuarioPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioPrestamoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioPrestamoActionPerformed
-
     private void btnRegistrarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPrestamoActionPerformed
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            controller.createBorrow(Integer.valueOf(txtId.getText()), txtLibroPrestamo.getText(), txtUsuarioPrestamo.getText());
+            List<Book>books= generarLibros();
+            String codigoLibro= buscarLibro(books,String.valueOf(cbLibros.getSelectedItem()));
+            List<User>users= generarUsuarios();
+            String codigoUsuario= buscarUsuario(users,String.valueOf(cbUsuarios.getSelectedItem()));
+            controller.createBorrow(Integer.valueOf(txtId.getText()), codigoLibro, codigoUsuario);
             JOptionPane.showMessageDialog(null,"Se registro con exito");
         } catch (Exception ex) {
             Logger.getLogger(CrudAuthor.class.getName()).log(Level.SEVERE, null, ex);
@@ -228,15 +306,16 @@ public class CrudBorrow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDevolverLibro;
     private javax.swing.JButton btnRegistrarPrestamo;
+    private javax.swing.JComboBox<String> cbLibros;
+    private javax.swing.JComboBox cbUsuarios;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtIdPrestamoDevolver;
-    private javax.swing.JTextField txtLibroPrestamo;
-    private javax.swing.JTextField txtUsuarioPrestamo;
     // End of variables declaration//GEN-END:variables
 }

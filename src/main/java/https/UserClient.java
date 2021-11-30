@@ -73,5 +73,22 @@ public class UserClient {
         return mylist;
     }
     
+    public List<User> getUsers() throws IOException {
+        Request request = new Request.Builder()
+                .url(HOST +"/users")
+                .method("GET", null)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        Response response = client.newCall(request).execute();
+
+        String bodyAsString = response.body().string();
+
+        User[] users = objectMapper.readValue(bodyAsString, User[].class);
+        
+        List<User> mylist = Arrays.asList(users);
+
+        return mylist;
+    }
+    
     
 }

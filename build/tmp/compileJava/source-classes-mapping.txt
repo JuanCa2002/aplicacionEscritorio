@@ -53,7 +53,6 @@ views/CrudBorrow.java
  views.CrudBorrow$2
  views.CrudBorrow$3
  views.CrudBorrow$4
- views.CrudBorrow$5
 https/PublisherClient.java
  https.PublisherClient
 edu/eam/disenosoftware/aplicacion_escritorio_libreria/Main.java
