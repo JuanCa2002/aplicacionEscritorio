@@ -14,12 +14,12 @@ public class Book {
     private String nombre;
     private String isbn;
     private int stock;
-    private int publisher;
+    private Publisher publisher;
 
     public Book() {
     }
 
-    public Book(String codigo, String nombre, String isbn, int stock, int publisher) {
+    public Book(String codigo, String nombre, String isbn, int stock, Publisher publisher) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.isbn = isbn;
@@ -59,11 +59,11 @@ public class Book {
         this.stock = Stock;
     }
 
-    public int getCodePublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setCodePublisher(int codePublisher) {
+    public void setPublisher(Publisher codePublisher) {
         this.publisher = codePublisher;
     }
 

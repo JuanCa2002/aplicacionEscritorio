@@ -6,6 +6,10 @@
 package https;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 import models.APIError;
 import models.Publisher;
 import okhttp3.MediaType;
@@ -38,7 +42,7 @@ public class PublisherClient {
         //String bodyStr = objectMapper.writeValueAsString(publisher);
 
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "{\n    \"code\": "+publisher.getCode()+",\n    \"name\": \""+publisher.getNombre()+"\"\n}");
+        RequestBody body = RequestBody.create(mediaType, "{\n    \"code\": "+publisher.getCode()+",\n    \"name\": \""+publisher.getName()+"\"\n}");
         //RequestBody body = RequestBody.create(mediaType, bodyStr);
 
         Request request = new Request.Builder()
@@ -55,6 +59,23 @@ public class PublisherClient {
             APIError error = objectMapper.readValue(bodyAsString, APIError.class);
             throw new Exception(error.getMessage());
         }
+    }
+    
+    public List<Publisher> getPublishers() throws IOException {
+        Request request = new Request.Builder()
+                .url(HOST +"/publishers")
+                .method("GET", null)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        Response response = client.newCall(request).execute();
+
+        String bodyAsString = response.body().string();
+
+        Publisher[] publishers = objectMapper.readValue(bodyAsString, Publisher[].class);
+        
+        List<Publisher> mylist = Arrays.asList(publishers);
+
+        return mylist;
     }
 
 }

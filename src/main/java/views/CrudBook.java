@@ -5,6 +5,8 @@
 package views;
 
 import controllers.CrudBookController;
+import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,9 +21,25 @@ public class CrudBook extends javax.swing.JFrame {
     /**
      * Creates new form CrudBook
      */
-    public CrudBook() {
+    public CrudBook()  {
         initComponents();
         controller= new CrudBookController();
+        edit();
+    }
+    
+    public void edit(){
+        try{
+        List<Publisher> edits= controller.getAllPublisher();
+        cargarCombo(edits);
+        }catch (IOException ex) {
+            Logger.getLogger(CrudBook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void cargarCombo(List<Publisher> publishers){
+        for(Publisher p:publishers){
+            cbPublishers.addItem(p);
+        }
     }
 
     /**
@@ -43,8 +61,8 @@ public class CrudBook extends javax.swing.JFrame {
         txtIsbn = new javax.swing.JTextField();
         txtCantidad = new javax.swing.JTextField();
         btnRegistrarLibro = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        txtCodePublisher = new javax.swing.JTextField();
+        cbPublishers = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,7 +95,7 @@ public class CrudBook extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("codigo editorial:");
+        jLabel7.setText("Editorial:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,32 +104,30 @@ public class CrudBook extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(jLabel1))
+                        .addGap(87, 87, 87)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbPublishers, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                            .addComponent(txtCodigo)
+                            .addComponent(txtIsbn)
+                            .addComponent(txtCantidad)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(btnRegistrarLibro)))
+                        .addGap(165, 165, 165)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnRegistrarLibro)
+                            .addComponent(jLabel1))))
                 .addContainerGap(182, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                    .addComponent(txtCodigo)
-                    .addComponent(txtIsbn)
-                    .addComponent(txtCantidad)
-                    .addComponent(txtCodePublisher))
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addGap(26, 26, 26)
@@ -132,8 +148,8 @@ public class CrudBook extends javax.swing.JFrame {
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtCodePublisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbPublishers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(btnRegistrarLibro)
                 .addGap(47, 47, 47))
@@ -158,8 +174,9 @@ public class CrudBook extends javax.swing.JFrame {
             String nombre= txtNombre.getText();
             String isbn= txtIsbn.getText();
             int cantidad = Integer.parseInt(txtCantidad.getText());
-            int codigoEditorial= Integer.parseInt(txtCodePublisher.getText());
-            controller.createBook(codigo,nombre,isbn,cantidad,codigoEditorial);
+            Publisher publisher= (Publisher)cbPublishers.getSelectedItem();
+            System.out.print(publisher.getName());
+            controller.createBook(codigo,nombre,isbn,cantidad,publisher);
             JOptionPane.showMessageDialog(null,"Se registro con exito");
         } catch (Exception ex) {
             Logger.getLogger(CrudAuthor.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,14 +222,14 @@ public class CrudBook extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarLibro;
+    private javax.swing.JComboBox cbPublishers;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtCodePublisher;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtIsbn;
     private javax.swing.JTextField txtNombre;

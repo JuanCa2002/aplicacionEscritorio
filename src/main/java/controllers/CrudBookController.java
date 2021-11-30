@@ -5,6 +5,9 @@
 package controllers;
 
 import https.BookClient;
+import https.PublisherClient;
+import java.io.IOException;
+import java.util.List;
 import models.Book;
 import models.Publisher;
 
@@ -14,14 +17,22 @@ import models.Publisher;
  */
 public class CrudBookController {
     private BookClient client;
+    private PublisherClient clientP;
 
     public CrudBookController() {
         client = new BookClient();
+        clientP= new PublisherClient();
     }
 
-    public void createBook(String codigo, String nombre, String isbn, int stock, int codePublisher) throws Exception {
-        Book book = new Book(codigo, nombre,isbn,stock,codePublisher);
+    public void createBook(String codigo, String nombre, String isbn, int stock, Publisher publisher) throws Exception {
+        Book book = new Book(codigo, nombre,isbn,stock,publisher);
 
-        client.createBook(book,codePublisher);
+        client.createBook(book,publisher.getCode());
+    }
+    
+    public List<Publisher> getAllPublisher() throws IOException{
+        List<Publisher> publishers= clientP.getPublishers();
+        
+        return publishers;
     }
 }

@@ -6,8 +6,8 @@ package https;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
-
 import models.APIError;
 import models.Book;
 import models.User;
@@ -56,7 +56,7 @@ public class UserClient {
         }
     }
      
-    public String findBooksByUser(int idUser) throws IOException {
+    public List<Book> findBooksByUser(int idUser) throws IOException {
         Request request = new Request.Builder()
                 .url(HOST +"/users/"+idUser+"/books")
                 .method("GET", null)
@@ -66,9 +66,11 @@ public class UserClient {
 
         String bodyAsString = response.body().string();
 
-        //Book[] books = objectMapper.readValue(bodyAsString, Book[].class);
+        Book[] books = objectMapper.readValue(bodyAsString, Book[].class);
+        
+        List<Book> mylist = Arrays.asList(books);
 
-        return bodyAsString;
+        return mylist;
     }
     
     

@@ -17,17 +17,17 @@ public class Publisher {
     public Publisher() {
     }
 
-    public Publisher(int code, String nombre) {
+    public Publisher(int code, String name) {
         this.code = code;
-        this.name=nombre;
+        this.name=name;
     }
 
-    public String getNombre() {
+    public String getName() {
         return name;
     }
 
-    public void setNombre(String nombre) {
-        this.name = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCode() {
@@ -40,10 +40,7 @@ public class Publisher {
     
     @Override
     public String toString() {
-        return "Publisher{"+
-                " code=" + code +
-                " ,name ='" + name +'\'' + 
-                '}';
+        return name;
     }
 
 }

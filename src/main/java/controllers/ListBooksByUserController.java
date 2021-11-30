@@ -6,6 +6,7 @@ package controllers;
 
 import https.UserClient;
 import java.io.IOException;
+import java.util.List;
 import models.Book;
 
 /**
@@ -19,7 +20,7 @@ public class ListBooksByUserController {
        client = new UserClient();
     }
 
-    public String getBooksByUser(int idUser) throws IOException {
+    public List<Book> getBooksByUser(int idUser) throws IOException {
         return client.findBooksByUser(idUser);
     }
 }
